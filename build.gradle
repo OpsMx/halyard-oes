@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 plugins {
   id 'io.spinnaker.project' version "$spinnakerGradleVersion" apply false
   id 'com.google.protobuf' version "0.8.12" apply false
@@ -21,6 +20,10 @@ plugins {
 
 allprojects {
   apply plugin: "io.spinnaker.project"
+  repositories {mavenCentral()}
+  tasks.withType(Copy).all {
+    duplicatesStrategy 'exclude'
+  }
 }
 
 subprojects {
@@ -46,13 +49,16 @@ subprojects {
   }
 
   dependencies {
-    implementation enforcedPlatform("io.spinnaker.kork:kork-bom:$korkVersion")
+    implementation enforcedPlatform("io.spinnaker.kork:kork-bom:$korkVersion"){
+      exclude group: 'org.apache.groovy', module: 'groovy'
+    }
 
     annotationProcessor platform("io.spinnaker.kork:kork-bom:$korkVersion")
     annotationProcessor "org.projectlombok:lombok"
     testAnnotationProcessor platform("io.spinnaker.kork:kork-bom:$korkVersion")
     testAnnotationProcessor "org.projectlombok:lombok"
   }
+
 }
 
 defaultTasks ':halyard-web:run'

@@ -1,4 +1,6 @@
 apply plugin: 'io.spinnaker.package'
+apply plugin: 'java-library'
+apply plugin: 'groovy'
 
 mainClassName = 'com.netflix.spinnaker.halyard.Main'
 
@@ -24,12 +26,11 @@ dependencies {
   implementation 'org.apache.commons:commons-lang3'
   implementation 'com.squareup.retrofit:retrofit'
   implementation 'io.github.lognet:grpc-spring-boot-starter:2.4.4'
-  implementation 'org.codehaus.groovy:groovy'
   implementation "io.spinnaker.kork:kork-web"
   implementation "io.spinnaker.kork:kork-cloud-config-server"
   implementation "io.spinnaker.kork:kork-config"
   runtimeOnly    "io.spinnaker.kork:kork-actuator"
-
+  implementation "jakarta.validation:jakarta.validation-api:3.0.2"
   implementation project(':halyard-backup')
   // halyard-cli is required as a dependency even though it is not used directly by halyard-web
   // because the halyard installation only install halyard-web but the CLI expects to find the

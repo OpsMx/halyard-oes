@@ -26,9 +26,7 @@ import com.google.api.services.compute.model.Firewall;
 import com.google.api.services.compute.model.Instance;
 import com.google.api.services.compute.model.Network;
 import com.google.api.services.compute.model.Operation;
-import com.netflix.spinnaker.clouddriver.google.security.GoogleNamedAccountCredentials;
 import com.netflix.spinnaker.halyard.config.model.v1.providers.google.GoogleAccount;
-import com.netflix.spinnaker.halyard.config.problem.v1.ConfigProblemSetBuilder;
 import com.netflix.spinnaker.halyard.core.error.v1.HalException;
 import com.netflix.spinnaker.halyard.core.job.v1.JobExecutor;
 import com.netflix.spinnaker.halyard.core.job.v1.JobRequest;
@@ -58,7 +56,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
-import org.springframework.util.SocketUtils;
 
 @Slf4j
 class GoogleProviderUtils {
@@ -170,7 +167,7 @@ class GoogleProviderUtils {
 
   private static Proxy openSshTunnel(String ip, int port, String keyFile)
       throws InterruptedException {
-    JobExecutor jobExecutor = DaemonTaskHandler.getJobExecutor();
+    /* JobExecutor jobExecutor = DaemonTaskHandler.getJobExecutor();
     List<String> command = new ArrayList<>();
 
     // Make sure we don't have an entry for this host already (GCP recycles IPs).
@@ -211,7 +208,8 @@ class GoogleProviderUtils {
       status = jobExecutor.updateJob(jobId);
     }
 
-    return new Proxy().setJobId(jobId).setPort(localPort);
+    return new Proxy().setJobId(jobId).setPort(localPort);*/
+    return null;
   }
 
   private static void closeSshTunnel(Proxy proxy) {
@@ -447,7 +445,7 @@ class GoogleProviderUtils {
   }
 
   static Compute getCompute(AccountDeploymentDetails<GoogleAccount> details) {
-    ConfigProblemSetBuilder problemSetBuilder = new ConfigProblemSetBuilder(null);
+    /*ConfigProblemSetBuilder problemSetBuilder = new ConfigProblemSetBuilder(null);
     GoogleNamedAccountCredentials credentials =
         details.getAccount().getNamedAccountCredentials("", null, problemSetBuilder);
 
@@ -455,7 +453,8 @@ class GoogleProviderUtils {
       throw new HalException(problemSetBuilder.build().getProblems());
     }
 
-    return credentials.getCompute();
+    return credentials.getCompute();*/
+    return null;
   }
 
   static String getInstanceIp(

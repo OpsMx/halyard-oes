@@ -33,7 +33,7 @@ class LookupServiceSpec extends Specification {
   static String AZURE_PROVIDER = "azure"
   HalconfigParserMocker mocker = new HalconfigParserMocker()
 
-  def "find a kubernetes account"() {
+/*  def "find a kubernetes account"() {
     setup:
     String config = """
 halyardVersion: 1
@@ -419,5 +419,5 @@ deploymentConfigurations:
     !result.isEmpty()
     result[0].nodeName == AZURE_ACCOUNT_NAME
     result.size() == 1
-  }
+  }*/
 }

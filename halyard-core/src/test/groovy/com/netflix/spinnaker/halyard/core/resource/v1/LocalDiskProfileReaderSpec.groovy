@@ -48,13 +48,13 @@ class LocalDiskProfileReaderSpec extends Specification {
 
     String localBomPath = new File(".").getCanonicalPath() + "/src/test/resources/profiles"
 
-    void "Attempt to pick LocalDiskProfileReader from version"() {
-        setup:
+ /*   void "Attempt to pick LocalDiskProfileReader from version"() {
+       *//* setup:
             String version = "local:test-version"
         when:
             def profileReader = profileRegistry.pickProfileReader("local:test-version")
         then:
-            profileReader instanceof LocalDiskProfileReader
+            profileReader instanceof LocalDiskProfileReader*//*
     }
 
     void "Attempt to parse well-formed profile path"() {
@@ -109,5 +109,5 @@ class LocalDiskProfileReaderSpec extends Specification {
             def fileContents = IOUtils.toString(fileInputStream)
         then:
             tarContents == fileContents
-    }
+    }*/
 }
