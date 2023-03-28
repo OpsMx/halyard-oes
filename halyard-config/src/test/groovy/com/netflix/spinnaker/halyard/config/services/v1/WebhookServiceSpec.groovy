@@ -37,7 +37,7 @@ class WebhookServiceSpec extends Specification {
     new WebhookService(lookupService, deploymentService, new ValidateService())
   }
 
-/*  def "load existing webhook node with custom trust disabled"() {
+  def "load existing webhook node with custom trust disabled"() {
         setup:
         String config = """
 halyardVersion: 1
@@ -155,5 +155,5 @@ deploymentConfigurations:
     result.getTrust().isEnabled()
     result.getTrust().getTrustStore() == "/home/user/keystore2.jks"
     result.getTrust().getTrustStorePassword() == "password2"
-  }*/
+  }
 }

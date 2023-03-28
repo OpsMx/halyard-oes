@@ -21,10 +21,20 @@ import static com.netflix.spinnaker.halyard.core.problem.v1.Problem.Severity.FAT
 
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.compute.Compute;
+import com.google.api.services.compute.model.AccessConfig;
+import com.google.api.services.compute.model.AttachedDisk;
+import com.google.api.services.compute.model.AttachedDiskInitializeParams;
 import com.google.api.services.compute.model.InstanceGroupManager;
+import com.google.api.services.compute.model.InstanceProperties;
+import com.google.api.services.compute.model.InstanceTemplate;
 import com.google.api.services.compute.model.ManagedInstance;
 import com.google.api.services.compute.model.Metadata;
+import com.google.api.services.compute.model.NetworkInterface;
+import com.google.api.services.compute.model.Operation;
+import com.google.api.services.compute.model.ServiceAccount;
 import com.netflix.frigga.Names;
+import com.netflix.spinnaker.clouddriver.google.deploy.GCEUtil;
+import com.netflix.spinnaker.clouddriver.google.model.GoogleDiskType;
 import com.netflix.spinnaker.halyard.config.model.v1.node.Provider;
 import com.netflix.spinnaker.halyard.config.model.v1.providers.google.GoogleAccount;
 import com.netflix.spinnaker.halyard.core.error.v1.HalException;
@@ -60,6 +70,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.http.client.utils.URIBuilder;
@@ -352,7 +363,7 @@ public interface GoogleDistributedService<T> extends DistributedService<T, Googl
       ResolvedConfiguration resolvedConfiguration,
       List<ConfigSource> configSources,
       boolean recreate) {
-    /* DaemonTaskHandler.newStage("Deploying " + getServiceName() + " via GCE API");
+    DaemonTaskHandler.newStage("Deploying " + getServiceName() + " via GCE API");
     Integer version = 0;
     ServiceSettings settings = resolvedConfiguration.getServiceSettings(getService());
     SpinnakerRuntimeSettings runtimeSettings = resolvedConfiguration.getRuntimeSettings();
@@ -468,7 +479,7 @@ public interface GoogleDistributedService<T> extends DistributedService<T, Googl
       ready = version.equals(runningVersion);
 
       DaemonTaskHandler.safeSleep(TimeUnit.SECONDS.toMillis(2));
-    }*/
+    }
   }
 
   @Override

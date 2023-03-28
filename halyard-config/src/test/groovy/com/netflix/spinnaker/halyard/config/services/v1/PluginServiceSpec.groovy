@@ -36,7 +36,7 @@ class PluginServiceSpec extends Specification {
       new PluginService(lookupService, new ValidateService(), deploymentService)
   }
 
- /* def "load an existing plugin node"() {
+  def "load an existing plugin node"() {
     setup:
     String config = """
 halyardVersion: 1
@@ -186,5 +186,5 @@ deploymentConfigurations:
     then:
     result != null
     result.getEnabled() == true
-  }*/
+  }
 }

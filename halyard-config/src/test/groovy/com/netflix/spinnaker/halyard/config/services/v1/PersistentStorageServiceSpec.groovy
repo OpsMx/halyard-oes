@@ -38,7 +38,7 @@ class PersistentStorageServiceSpec extends Specification {
     return persistentStorageService
   }
 
-/*  def "load an existent persistentStorage node"() {
+  def "load an existent persistentStorage node"() {
     setup:
     String config = """
 halyardVersion: 1
@@ -139,5 +139,5 @@ deploymentConfigurations:
 
     then:
     result != null
-  }*/
+  }
 }

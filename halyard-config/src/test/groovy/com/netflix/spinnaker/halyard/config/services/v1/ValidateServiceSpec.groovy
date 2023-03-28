@@ -35,7 +35,7 @@ class ValidateServiceSpec extends Specification {
   static String AZURE_PROVIDER = "azure"
   HalconfigParserMocker mocker = new HalconfigParserMocker()
 
- /* def "tracking validator hits all accounts"() {
+  def "tracking validator hits all accounts"() {
     setup:
     String config = """
 halyardVersion: 1
@@ -80,7 +80,7 @@ deploymentConfigurations:
     validator.validatedAccounts.contains(DOCKER_REGISTRY_ACCOUNT_NAME)
     validator.validatedAccounts.contains(GOOGLE_ACCOUNT_NAME)
     validator.validatedAccounts.contains(AZURE_ACCOUNT_NAME)
-  }*/
+  }
 
   class TrackingAccountValidator extends Validator<Account> {
     List<String> validatedAccounts = []

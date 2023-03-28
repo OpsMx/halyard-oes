@@ -36,7 +36,7 @@ class PluginRepositoryServiceSpec extends Specification {
       new PluginRepositoryService(lookupService, new ValidateService(), deploymentService)
   }
 
- /* def "load an existing plugin repository node"() {
+  def "load an existing plugin repository node"() {
     setup:
     String config = """
 halyardVersion: 1
@@ -174,5 +174,5 @@ deploymentConfigurations:
     then:
     result != null
     result.getUrl() == "byah.org"
-  }*/
+  }
 }

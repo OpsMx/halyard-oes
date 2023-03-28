@@ -27,7 +27,7 @@ class ConfigServiceSpec extends Specification {
     configService.halconfigParser = mocker.mockHalconfigParser(config)
     return configService
   }
-/*
+
   void "loads halconfig"() {
     setup:
     String config = """
@@ -62,5 +62,5 @@ deploymentConfigurations:
 
     then:
     result == DEPLOYMENT
-  }*/
+  }
 }

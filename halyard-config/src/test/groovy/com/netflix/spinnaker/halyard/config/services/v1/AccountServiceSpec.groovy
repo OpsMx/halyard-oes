@@ -39,7 +39,7 @@ class AccountServiceSpec extends Specification {
     return accountService
   }
 
- /* def "load an existent account node"() {
+  def "load an existent account node"() {
     setup:
     String config = """
 halyardVersion: 1
@@ -185,5 +185,5 @@ deploymentConfigurations:
 
     then:
     result != null
-  }*/
+  }
 }
