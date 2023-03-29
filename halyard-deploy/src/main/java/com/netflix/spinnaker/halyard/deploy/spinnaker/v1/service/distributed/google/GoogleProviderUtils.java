@@ -26,7 +26,9 @@ import com.google.api.services.compute.model.Firewall;
 import com.google.api.services.compute.model.Instance;
 import com.google.api.services.compute.model.Network;
 import com.google.api.services.compute.model.Operation;
+import com.netflix.spinnaker.clouddriver.google.security.GoogleNamedAccountCredentials;
 import com.netflix.spinnaker.halyard.config.model.v1.providers.google.GoogleAccount;
+import com.netflix.spinnaker.halyard.config.problem.v1.ConfigProblemSetBuilder;
 import com.netflix.spinnaker.halyard.core.error.v1.HalException;
 import com.netflix.spinnaker.halyard.core.job.v1.JobExecutor;
 import com.netflix.spinnaker.halyard.core.job.v1.JobRequest;
@@ -38,6 +40,7 @@ import com.netflix.spinnaker.halyard.deploy.spinnaker.v1.service.ServiceSettings
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -165,9 +168,19 @@ class GoogleProviderUtils {
     }
   }
 
+  private static Integer findRandomOpenPortOnAllLocalInterfaces() {
+    ServerSocket socket;
+    try {
+      socket = new ServerSocket(0);
+    } catch (IOException e) {
+      throw new HalException(FATAL, "cannot find a random port");
+    }
+    return socket.getLocalPort();
+  }
+
   private static Proxy openSshTunnel(String ip, int port, String keyFile)
       throws InterruptedException {
-    /* JobExecutor jobExecutor = DaemonTaskHandler.getJobExecutor();
+    JobExecutor jobExecutor = DaemonTaskHandler.getJobExecutor();
     List<String> command = new ArrayList<>();
 
     // Make sure we don't have an entry for this host already (GCP recycles IPs).
@@ -185,7 +198,7 @@ class GoogleProviderUtils {
       }
     }
 
-    int localPort = SocketUtils.findAvailableTcpPort();
+    int localPort = findRandomOpenPortOnAllLocalInterfaces();
 
     command.clear();
     command.add("ssh");
@@ -208,8 +221,7 @@ class GoogleProviderUtils {
       status = jobExecutor.updateJob(jobId);
     }
 
-    return new Proxy().setJobId(jobId).setPort(localPort);*/
-    return null;
+    return new Proxy().setJobId(jobId).setPort(localPort);
   }
 
   private static void closeSshTunnel(Proxy proxy) {
@@ -445,7 +457,7 @@ class GoogleProviderUtils {
   }
 
   static Compute getCompute(AccountDeploymentDetails<GoogleAccount> details) {
-    /*ConfigProblemSetBuilder problemSetBuilder = new ConfigProblemSetBuilder(null);
+    ConfigProblemSetBuilder problemSetBuilder = new ConfigProblemSetBuilder(null);
     GoogleNamedAccountCredentials credentials =
         details.getAccount().getNamedAccountCredentials("", null, problemSetBuilder);
 
@@ -453,8 +465,7 @@ class GoogleProviderUtils {
       throw new HalException(problemSetBuilder.build().getProblems());
     }
 
-    return credentials.getCompute();*/
-    return null;
+    return credentials.getCompute();
   }
 
   static String getInstanceIp(
