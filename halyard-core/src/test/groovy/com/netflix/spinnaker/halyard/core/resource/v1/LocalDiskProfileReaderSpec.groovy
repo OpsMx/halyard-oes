@@ -16,21 +16,24 @@
 
 package com.netflix.spinnaker.halyard.core.resource.v1
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.netflix.spinnaker.halyard.core.error.v1.HalException
 import com.netflix.spinnaker.halyard.core.problem.v1.Problem
-import com.netflix.spinnaker.halyard.core.registry.v1.GitProfileReader
-import com.netflix.spinnaker.halyard.core.registry.v1.GoogleProfileReader
-import com.netflix.spinnaker.halyard.core.registry.v1.LocalDiskProfileReader
-import com.netflix.spinnaker.halyard.core.registry.v1.ProfileRegistry
 import org.apache.commons.compress.archivers.ArchiveException
 import org.apache.commons.compress.archivers.ArchiveStreamFactory
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream
 import org.apache.commons.io.IOUtils
+import spock.lang.Specification
+
+import com.netflix.spinnaker.halyard.core.registry.v1.ProfileRegistry
+import com.netflix.spinnaker.halyard.core.registry.v1.GoogleProfileReader
+import com.netflix.spinnaker.halyard.core.registry.v1.GitProfileReader
+import com.netflix.spinnaker.halyard.core.registry.v1.LocalDiskProfileReader
+import org.yaml.snakeyaml.Yaml
+import com.fasterxml.jackson.databind.ObjectMapper
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.yaml.snakeyaml.Yaml
-import spock.lang.Specification
+
 
 @SpringBootTest(classes = [ProfileRegistry.class, GoogleProfileReader.class, GitProfileReader.class, LocalDiskProfileReader.class, Yaml.class, ObjectMapper.class, String.class])
 class LocalDiskProfileReaderSpec extends Specification {
@@ -43,7 +46,7 @@ class LocalDiskProfileReaderSpec extends Specification {
 
     String localBomPath = new File(".").getCanonicalPath() + "/src/test/resources/profiles"
 
-    /*void "Attempt to pick LocalDiskProfileReader from version"() {
+  /*  void "Attempt to pick LocalDiskProfileReader from version"() {
         setup:
             String version = "local:test-version"
         when:

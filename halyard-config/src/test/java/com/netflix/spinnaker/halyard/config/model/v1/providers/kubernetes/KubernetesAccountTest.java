@@ -16,16 +16,15 @@
 
 package com.netflix.spinnaker.halyard.config.model.v1.providers.kubernetes;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import com.netflix.spinnaker.halyard.config.config.v1.StrictObjectMapper;
-import org.junit.jupiter.api.Test;
-import org.yaml.snakeyaml.Yaml;
-
 import java.io.IOException;
 import java.io.StringWriter;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
+import org.yaml.snakeyaml.Yaml;
 
 final class KubernetesAccountTest {
 
