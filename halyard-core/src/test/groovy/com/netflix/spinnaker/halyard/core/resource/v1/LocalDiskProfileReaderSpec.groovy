@@ -22,6 +22,9 @@ import org.apache.commons.compress.archivers.ArchiveException
 import org.apache.commons.compress.archivers.ArchiveStreamFactory
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream
 import org.apache.commons.io.IOUtils
+import org.junit.jupiter.api.extension.ExtendWith
+import org.springframework.context.annotation.Import
+import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
 
 import com.netflix.spinnaker.halyard.core.registry.v1.ProfileRegistry
@@ -35,7 +38,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 
-@SpringBootTest(classes = [ProfileRegistry.class, GoogleProfileReader.class, GitProfileReader.class, LocalDiskProfileReader.class, Yaml.class, ObjectMapper.class, String.class])
+//@SpringBootTest(classes = [ProfileRegistry.class, GoogleProfileReader.class, GitProfileReader.class, LocalDiskProfileReader.class, Yaml.class, ObjectMapper.class, String.class])
+@ContextConfiguration(classes = [ProfileRegistry.class, GoogleProfileReader.class, GitProfileReader.class, LocalDiskProfileReader.class, Yaml.class, ObjectMapper.class, String.class])
 class LocalDiskProfileReaderSpec extends Specification {
 
     @Autowired
@@ -46,7 +50,7 @@ class LocalDiskProfileReaderSpec extends Specification {
 
     String localBomPath = new File(".").getCanonicalPath() + "/src/test/resources/profiles"
 
-  /*  void "Attempt to pick LocalDiskProfileReader from version"() {
+    void "Attempt to pick LocalDiskProfileReader from version"() {
         setup:
             String version = "local:test-version"
         when:
@@ -107,5 +111,5 @@ class LocalDiskProfileReaderSpec extends Specification {
             def fileContents = IOUtils.toString(fileInputStream)
         then:
             tarContents == fileContents
-    }*/
+    }
 }
