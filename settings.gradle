@@ -14,6 +14,16 @@
  * limitations under the License.
  */
 
+if (spinnakerGradleVersion.endsWith('-SNAPSHOT')) {
+  pluginManagement {
+    repositories {
+      mavenLocal()
+      mavenCentral()
+      gradlePluginPortal()
+    }
+  }
+}
+
 ['clouddriver', 'fiat', 'front50', 'kork'].each { prj ->
   String propName = "${prj}Composite"
   String projectPath = "../$prj"
@@ -21,6 +31,8 @@
     includeBuild projectPath
   }
 }
+
+enableFeaturePreview("VERSION_ORDERING_V2")
 
 rootProject.name="halyard"
 

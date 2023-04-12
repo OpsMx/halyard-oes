@@ -98,7 +98,7 @@ deploymentConfigurations:
   version: 1
   providers: null
   spinnaker:
-    extensibility: 
+    extensibility:
       plugins: {}
 """
     def pluginService = makePluginService(config)
