@@ -43,7 +43,12 @@ public class HalconfigDirectoryStructure {
   }
 
   public String getHalconfigPath() {
-    return normalizePath(Paths.get(getHalconfigDirectory(), "config").toString());
+    String dir = getHalconfigDirectory();
+    if (dir != null) {
+      String path = Paths.get(dir, "config").toString();
+      return normalizePath(path);
+    }
+    return "/config";
   }
 
   public Path getLogsPath(String deploymentName) {

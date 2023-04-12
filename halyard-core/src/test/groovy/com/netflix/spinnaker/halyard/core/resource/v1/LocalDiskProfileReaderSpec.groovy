@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.netflix.spinnaker.halyard.config.model.v1
+package com.netflix.spinnaker.halyard.core.resource.v1
 
 import com.netflix.spinnaker.halyard.core.error.v1.HalException
 import com.netflix.spinnaker.halyard.core.problem.v1.Problem
@@ -22,6 +22,9 @@ import org.apache.commons.compress.archivers.ArchiveException
 import org.apache.commons.compress.archivers.ArchiveStreamFactory
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream
 import org.apache.commons.io.IOUtils
+import org.junit.jupiter.api.extension.ExtendWith
+import org.springframework.context.annotation.Import
+import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
 
 import com.netflix.spinnaker.halyard.core.registry.v1.ProfileRegistry
@@ -34,10 +37,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
-import java.io.File
 
-
-@SpringBootTest(classes = [ProfileRegistry.class, GoogleProfileReader.class, GitProfileReader.class, LocalDiskProfileReader.class, Yaml.class, ObjectMapper.class, String.class])
+//@SpringBootTest(classes = [ProfileRegistry.class, GoogleProfileReader.class, GitProfileReader.class, LocalDiskProfileReader.class, Yaml.class, ObjectMapper.class, String.class])
+@ContextConfiguration(classes = [ProfileRegistry.class, GoogleProfileReader.class, GitProfileReader.class, LocalDiskProfileReader.class, Yaml.class, ObjectMapper.class, String.class])
 class LocalDiskProfileReaderSpec extends Specification {
 
     @Autowired

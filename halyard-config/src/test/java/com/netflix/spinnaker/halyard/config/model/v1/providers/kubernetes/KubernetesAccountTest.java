@@ -24,11 +24,18 @@ import com.netflix.spinnaker.halyard.config.config.v1.StrictObjectMapper;
 import java.io.IOException;
 import java.io.StringWriter;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
+// import org.junit.platform.runner.JUnitPlatform;
+// import org.junit.runner.RunWith;
 import org.yaml.snakeyaml.Yaml;
 
-@RunWith(JUnitPlatform.class)
+/*
+You don't need it anymore when using junit 5.
+In the junit documentation https://junit.org/junit5/docs/5.0.1/api/org/junit/platform/runner/JUnitPlatform.html
+it states:
+Annotating a class with @RunWith(JUnitPlatform.class) allows it to be run with IDEs and build systems that
+support JUnit 4 but do not yet support the JUnit Platform directly.
+*/
+// @RunWith(JUnitPlatform.class)
 final class KubernetesAccountTest {
 
   @Test

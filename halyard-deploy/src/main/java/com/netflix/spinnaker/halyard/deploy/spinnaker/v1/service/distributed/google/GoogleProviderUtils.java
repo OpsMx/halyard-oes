@@ -40,6 +40,7 @@ import com.netflix.spinnaker.halyard.deploy.spinnaker.v1.service.ServiceSettings
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -58,7 +59,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
-import org.springframework.util.SocketUtils;
 
 @Slf4j
 class GoogleProviderUtils {
@@ -168,6 +168,16 @@ class GoogleProviderUtils {
     }
   }
 
+  private static Integer findRandomOpenPortOnAllLocalInterfaces() {
+    ServerSocket socket;
+    try {
+      socket = new ServerSocket(0);
+    } catch (IOException e) {
+      throw new HalException(FATAL, "cannot find a random port");
+    }
+    return socket.getLocalPort();
+  }
+
   private static Proxy openSshTunnel(String ip, int port, String keyFile)
       throws InterruptedException {
     JobExecutor jobExecutor = DaemonTaskHandler.getJobExecutor();
@@ -188,7 +198,7 @@ class GoogleProviderUtils {
       }
     }
 
-    int localPort = SocketUtils.findAvailableTcpPort();
+    int localPort = findRandomOpenPortOnAllLocalInterfaces();
 
     command.clear();
     command.add("ssh");
