@@ -53,3 +53,11 @@ def cliScript = project.tasks.create('createCliStartScripts', CreateStartScripts
 tasks.installDist.dependsOn(cliScript)
 tasks.distZip.dependsOn(cliScript)
 tasks.distTar.dependsOn(cliScript)
+
+tasks.withType(Tar){
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.withType(Zip){
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
