@@ -55,6 +55,10 @@ subprojects {
     implementation enforcedPlatform("io.spinnaker.kork:kork-bom:$korkVersion"){
       exclude group: 'org.apache.groovy', module: 'groovy'
     }
+    implementation ("commons-fileupload:commons-fileupload:1.5")
+    implementation("io.netty:netty-codec-http:5.0.0.Alpha2")
+    implementation("org.apache.ivy:ivy:2.5.1")
+
 
     annotationProcessor platform("io.spinnaker.kork:kork-bom:$korkVersion")
     annotationProcessor "org.projectlombok:lombok"
