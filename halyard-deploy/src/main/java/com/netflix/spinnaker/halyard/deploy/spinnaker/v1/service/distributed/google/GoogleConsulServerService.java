@@ -38,6 +38,7 @@ import org.springframework.stereotype.Component;
 @Data
 public class GoogleConsulServerService extends ConsulServerService
     implements GoogleDistributedService<ConsulApi> {
+
   @Lazy @Delegate @Autowired GoogleDistributedServiceDelegate googleDistributedServiceDelegate;
 
   @Override

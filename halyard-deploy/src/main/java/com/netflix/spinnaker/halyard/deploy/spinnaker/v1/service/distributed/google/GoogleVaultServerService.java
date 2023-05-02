@@ -37,6 +37,7 @@ import org.springframework.stereotype.Component;
 @Data
 public class GoogleVaultServerService extends VaultServerService
     implements GoogleDistributedService<VaultServerService.Vault> {
+
   @Lazy @Delegate @Autowired GoogleDistributedServiceDelegate googleDistributedServiceDelegate;
 
   @Override

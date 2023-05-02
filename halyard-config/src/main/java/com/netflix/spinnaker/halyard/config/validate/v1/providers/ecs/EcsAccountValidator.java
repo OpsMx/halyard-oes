@@ -6,15 +6,20 @@ import com.netflix.spinnaker.halyard.config.model.v1.providers.ecs.EcsAccount;
 import com.netflix.spinnaker.halyard.config.problem.v1.ConfigProblemSetBuilder;
 import com.netflix.spinnaker.halyard.config.services.v1.AccountService;
 import com.netflix.spinnaker.halyard.config.services.v1.ConfigService;
+import com.netflix.spinnaker.halyard.config.services.v1.ProviderService;
 import com.netflix.spinnaker.halyard.core.problem.v1.Problem.Severity;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EcsAccountValidator extends Validator<EcsAccount> {
-  @Autowired AccountService accountService;
+
+  @Lazy @Autowired ProviderService providerService;
+
+  @Lazy @Autowired AccountService accountService;
 
   @Autowired ConfigService configService;
 

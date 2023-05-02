@@ -21,8 +21,12 @@ import com.netflix.spinnaker.config.OkHttp3ClientConfiguration;
 import com.netflix.spinnaker.config.OkHttpClientComponents;
 import com.netflix.spinnaker.config.RetrofitConfiguration;
 import com.netflix.spinnaker.config.okhttp3.OkHttpClientProvider;
+import com.netflix.spinnaker.kork.api.exceptions.ExceptionMessage;
+import com.netflix.spinnaker.kork.web.exceptions.ExceptionMessageDecorator;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -50,6 +54,12 @@ class RetrofitConfig {
   boolean retryOnConnectionFailure;
 
   @Autowired RequestInterceptor spinnakerRequestInterceptor;
+
+  @Bean
+  ExceptionMessageDecorator exceptionMessageDecorator(
+      ObjectProvider<List<ExceptionMessage>> exceptionMessagesProvider) {
+    return new ExceptionMessageDecorator(exceptionMessagesProvider);
+  }
 
   @Bean
   RestAdapter.LogLevel retrofitLogLevel(
