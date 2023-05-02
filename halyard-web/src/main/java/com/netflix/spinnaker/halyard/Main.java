@@ -27,7 +27,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(value = {"com.netflix.spinnaker.halyard"})
+@ComponentScan(value = {"com.netflix.spinnaker.halyard", "com.netflix.spinnaker.kork"})
 @EnableAutoConfiguration
 @EnableConfigServer
 public class Main extends SpringBootServletInitializer {
