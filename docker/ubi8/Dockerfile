@@ -46,3 +46,11 @@ RUN echo '#!/usr/bin/env bash' > /usr/local/bin/hal && \
 RUN wget https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
   chmod +x kubectl && \
   mv ./kubectl /usr/local/bin/kubectl
+  
+  
+RUN adduser spinnaker
+USER spinnaker
+
+CMD ["/opt/halyard/bin/halyard"]
+  
+  
