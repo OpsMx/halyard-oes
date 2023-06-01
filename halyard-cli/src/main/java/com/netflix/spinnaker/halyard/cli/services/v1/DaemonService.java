@@ -62,7 +62,7 @@ public interface DaemonService {
   @GET("/v1/config/")
   DaemonTask<Halconfig, Halconfig> getHalconfig();
 
-  @GET("/v1/config/currentDeployment/")
+  @GET("/v1/config/currentDeployment")
   DaemonTask<Halconfig, String> getCurrentDeployment();
 
   @PUT("/v1/config/currentDeployment/")
