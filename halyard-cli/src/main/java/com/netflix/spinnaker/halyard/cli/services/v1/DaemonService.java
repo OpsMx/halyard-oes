@@ -316,7 +316,7 @@ public interface DaemonService {
       @Path("subscriptionName") String subscriptionName,
       @Query("validate") boolean validate);
 
-  @POST("/v1/config/deployments/{deploymentName}/providers/{providerName}/accounts/")
+  @POST("/v1/config/deployments/{deploymentName}/providers/{providerName}/accounts")
   DaemonTask<Halconfig, Void> addAccount(
       @Path("deploymentName") String deploymentName,
       @Path("providerName") String providerName,
@@ -332,7 +332,7 @@ public interface DaemonService {
       @Query("validate") boolean validate);
 
   @PUT(
-      "/v1/config/deployments/{deploymentName}/providers/{providerName}/accounts/account/{accountName}/")
+      "/v1/config/deployments/{deploymentName}/providers/{providerName}/accounts/account/{accountName}")
   DaemonTask<Halconfig, Void> setAccount(
       @Path("deploymentName") String deploymentName,
       @Path("providerName") String providerName,
@@ -341,7 +341,7 @@ public interface DaemonService {
       @Body Account account);
 
   @DELETE(
-      "/v1/config/deployments/{deploymentName}/providers/{providerName}/accounts/account/{accountName}/")
+      "/v1/config/deployments/{deploymentName}/providers/{providerName}/accounts/account/{accountName}")
   DaemonTask<Halconfig, Void> deleteAccount(
       @Path("deploymentName") String deploymentName,
       @Path("providerName") String providerName,
