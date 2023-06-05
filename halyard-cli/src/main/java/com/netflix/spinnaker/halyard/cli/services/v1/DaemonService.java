@@ -324,7 +324,7 @@ public interface DaemonService {
       @Body Account account);
 
   @GET(
-      "/v1/config/deployments/{deploymentName}/providers/{providerName}/accounts/account/{accountName}/")
+      "/v1/config/deployments/{deploymentName}/providers/{providerName}/accounts/account/{accountName}")
   DaemonTask<Halconfig, Object> getAccount(
       @Path("deploymentName") String deploymentName,
       @Path("providerName") String providerName,
@@ -332,7 +332,7 @@ public interface DaemonService {
       @Query("validate") boolean validate);
 
   @PUT(
-      "/v1/config/deployments/{deploymentName}/providers/{providerName}/accounts/account/{accountName}/")
+      "/v1/config/deployments/{deploymentName}/providers/{providerName}/accounts/account/{accountName}")
   DaemonTask<Halconfig, Void> setAccount(
       @Path("deploymentName") String deploymentName,
       @Path("providerName") String providerName,
@@ -341,7 +341,7 @@ public interface DaemonService {
       @Body Account account);
 
   @DELETE(
-      "/v1/config/deployments/{deploymentName}/providers/{providerName}/accounts/account/{accountName}/")
+      "/v1/config/deployments/{deploymentName}/providers/{providerName}/accounts/account/{accountName}")
   DaemonTask<Halconfig, Void> deleteAccount(
       @Path("deploymentName") String deploymentName,
       @Path("providerName") String providerName,
@@ -712,41 +712,41 @@ public interface DaemonService {
       @Query("validate") boolean validate,
       @Body Notification notification);
 
-  @GET("/v1/config/deployments/{deploymentName}/ci/{ciName}/")
+  @GET("/v1/config/deployments/{deploymentName}/ci/{ciName}")
   DaemonTask<Halconfig, Ci> getCi(
       @Path("deploymentName") String deploymentName,
       @Path("ciName") String ciName,
       @Query("validate") boolean validate);
 
-  @PUT("/v1/config/deployments/{deploymentName}/ci/{ciName}/")
+  @PUT("/v1/config/deployments/{deploymentName}/ci/{ciName}")
   DaemonTask<Halconfig, Void> setCi(
       @Path("deploymentName") String deploymentName,
       @Path("ciName") String ciName,
       @Query("validate") boolean validate,
       @Body Ci ci);
 
-  @PUT("/v1/config/deployments/{deploymentName}/ci/{ciName}/enabled/")
+  @PUT("/v1/config/deployments/{deploymentName}/ci/{ciName}/enabled")
   DaemonTask<Halconfig, Void> setCiEnabled(
       @Path("deploymentName") String deploymentName,
       @Path("ciName") String ciName,
       @Query("validate") boolean validate,
       @Body boolean enabled);
 
-  @POST("/v1/config/deployments/{deploymentName}/ci/{ciName}/masters/")
+  @POST("/v1/config/deployments/{deploymentName}/ci/{ciName}/masters")
   DaemonTask<Halconfig, Void> addMaster(
       @Path("deploymentName") String deploymentName,
       @Path("ciName") String ciName,
       @Query("validate") boolean validate,
       @Body CIAccount account);
 
-  @GET("/v1/config/deployments/{deploymentName}/ci/{ciName}/masters/{masterName}/")
+  @GET("/v1/config/deployments/{deploymentName}/ci/{ciName}/masters/{masterName}")
   DaemonTask<Halconfig, CIAccount> getMaster(
       @Path("deploymentName") String deploymentName,
       @Path("ciName") String ciName,
       @Path("masterName") String masterName,
       @Query("validate") boolean validate);
 
-  @PUT("/v1/config/deployments/{deploymentName}/ci/{ciName}/masters/{masterName}/")
+  @PUT("/v1/config/deployments/{deploymentName}/ci/{ciName}/masters/{masterName}")
   DaemonTask<Halconfig, Void> setMaster(
       @Path("deploymentName") String deploymentName,
       @Path("ciName") String ciName,
@@ -754,7 +754,7 @@ public interface DaemonService {
       @Query("validate") boolean validate,
       @Body CIAccount account);
 
-  @DELETE("/v1/config/deployments/{deploymentName}/ci/{ciName}/masters/{masterName}/")
+  @DELETE("/v1/config/deployments/{deploymentName}/ci/{ciName}/masters/{masterName}")
   DaemonTask<Halconfig, Void> deleteMaster(
       @Path("deploymentName") String deploymentName,
       @Path("ciName") String ciName,
