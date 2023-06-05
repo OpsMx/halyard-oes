@@ -316,7 +316,7 @@ public interface DaemonService {
       @Path("subscriptionName") String subscriptionName,
       @Query("validate") boolean validate);
 
-  @POST("/v1/config/deployments/{deploymentName}/providers/{providerName}/accounts")
+  @POST("/v1/config/deployments/{deploymentName}/providers/{providerName}/accounts/")
   DaemonTask<Halconfig, Void> addAccount(
       @Path("deploymentName") String deploymentName,
       @Path("providerName") String providerName,
