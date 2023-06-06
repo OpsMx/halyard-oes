@@ -179,53 +179,53 @@ public interface DaemonService {
       @Query("validate") boolean validate,
       @Body Features features);
 
-  @PUT("/v1/config/deployments/{deploymentName}/persistentStorage/")
+  @PUT("/v1/config/deployments/{deploymentName}/persistentStorage")
   DaemonTask<Halconfig, Void> setPersistentStorage(
       @Path("deploymentName") String deploymentName,
       @Query("validate") boolean validate,
       @Body PersistentStorage persistentStorage);
 
-  @PUT("/v1/config/deployments/{deploymentName}/persistentStorage/{persistentStoreType}/")
+  @PUT("/v1/config/deployments/{deploymentName}/persistentStorage/{persistentStoreType}")
   DaemonTask<Halconfig, Void> setPersistentStore(
       @Path("deploymentName") String deploymentName,
       @Path("persistentStoreType") String persistentStoreType,
       @Query("validate") boolean validate,
       @Body PersistentStore persistentStore);
 
-  @GET("/v1/config/deployments/{deploymentName}/pubsubs/{pubsubName}/")
+  @GET("/v1/config/deployments/{deploymentName}/pubsubs/{pubsubName}")
   DaemonTask<Halconfig, Object> getPubsub(
       @Path("deploymentName") String deploymentName,
       @Path("pubsubName") String pubsubName,
       @Query("validate") boolean validate);
 
-  @PUT("/v1/config/deployments/{deploymentName}/pubsubs/{pubsubName}/")
+  @PUT("/v1/config/deployments/{deploymentName}/pubsubs/{pubsubName}")
   DaemonTask<Halconfig, Object> setPubsub(
       @Path("deploymentName") String deploymentName,
       @Path("pubsubName") String pubsubName,
       @Query("validate") boolean validate,
       @Body Pubsub pubsub);
 
-  @PUT("/v1/config/deployments/{deploymentName}/pubsubs/{pubsubName}/enabled/")
+  @PUT("/v1/config/deployments/{deploymentName}/pubsubs/{pubsubName}/enabled")
   DaemonTask<Halconfig, Void> setPubsubEnabled(
       @Path("deploymentName") String deploymentName,
       @Path("pubsubName") String pubsubName,
       @Query("validate") boolean validate,
       @Body boolean enabled);
 
-  @GET("/v1/config/deployments/{deploymentName}/providers/{providerName}/")
+  @GET("/v1/config/deployments/{deploymentName}/providers/{providerName}")
   DaemonTask<Halconfig, Object> getProvider(
       @Path("deploymentName") String deploymentName,
       @Path("providerName") String providerName,
       @Query("validate") boolean validate);
 
-  @PUT("/v1/config/deployments/{deploymentName}/providers/{providerName}/")
+  @PUT("/v1/config/deployments/{deploymentName}/providers/{providerName}")
   DaemonTask<Halconfig, Object> setProvider(
       @Path("deploymentName") String deploymentName,
       @Path("providerName") String providerName,
       @Query("validate") boolean validate,
       @Body Provider provider);
 
-  @PUT("/v1/config/deployments/{deploymentName}/providers/{providerName}/enabled/")
+  @PUT("/v1/config/deployments/{deploymentName}/providers/{providerName}/enabled")
   DaemonTask<Halconfig, Void> setProviderEnabled(
       @Path("deploymentName") String deploymentName,
       @Path("providerName") String providerName,
@@ -583,20 +583,20 @@ public interface DaemonService {
       @Query("validate") boolean validate,
       @Body boolean enabled);
 
-  @GET("/v1/config/deployments/{deploymentName}/security/authn/{methodName}/")
+  @GET("/v1/config/deployments/{deploymentName}/security/authn/{methodName}")
   DaemonTask<Halconfig, Object> getAuthnMethod(
       @Path("deploymentName") String deploymentName,
       @Path("methodName") String methodName,
       @Query("validate") boolean validate);
 
-  @PUT("/v1/config/deployments/{deploymentName}/security/authn/{methodName}/")
+  @PUT("/v1/config/deployments/{deploymentName}/security/authn/{methodName}")
   DaemonTask<Halconfig, Void> setAuthnMethod(
       @Path("deploymentName") String deploymentName,
       @Path("methodName") String methodName,
       @Query("validate") boolean validate,
       @Body AuthnMethod authnMethod);
 
-  @PUT("/v1/config/deployments/{deploymentName}/security/authn/{methodName}/enabled/")
+  @PUT("/v1/config/deployments/{deploymentName}/security/authn/{methodName}/enabled")
   DaemonTask<Halconfig, Void> setAuthnMethodEnabled(
       @Path("deploymentName") String deploymentName,
       @Path("methodName") String methodName,
