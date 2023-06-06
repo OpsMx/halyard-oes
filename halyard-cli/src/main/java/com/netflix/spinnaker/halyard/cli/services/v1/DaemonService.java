@@ -68,14 +68,14 @@ public interface DaemonService {
   @PUT("/v1/config/currentDeployment/")
   DaemonTask<Halconfig, Void> setCurrentDeployment(@Body StringBodyRequest name);
 
-  @GET("/v1/config/deployments/")
+  @GET("/v1/config/deployments")
   DaemonTask<Halconfig, List<DeploymentConfiguration>> getDeployments();
 
-  @GET("/v1/config/deployments/{deploymentName}/")
+  @GET("/v1/config/deployments/{deploymentName}")
   DaemonTask<Halconfig, Object> getDeployment(
       @Path("deploymentName") String deploymentName, @Query("validate") boolean validate);
 
-  @PUT("/v1/config/deployments/{deploymentName}/")
+  @PUT("/v1/config/deployments/{deploymentName}")
   DaemonTask<Halconfig, Void> setDeployment(
       @Path("deploymentName") String deploymentName,
       @Query("validate") boolean validate,
