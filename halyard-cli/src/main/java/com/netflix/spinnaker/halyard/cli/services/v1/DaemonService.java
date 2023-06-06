@@ -692,7 +692,7 @@ public interface DaemonService {
   DaemonTask<Halconfig, Object> getNotifications(
       @Path("deploymentName") String deploymentName, @Query("validate") boolean validate);
 
-  @GET("/v1/config/deployments/{deploymentName}/notifications/{notificationName}/")
+  @GET("/v1/config/deployments/{deploymentName}/notifications/{notificationName}")
   DaemonTask<Halconfig, Object> getNotification(
       @Path("deploymentName") String deploymentName,
       @Path("notificationName") String notificationName,
