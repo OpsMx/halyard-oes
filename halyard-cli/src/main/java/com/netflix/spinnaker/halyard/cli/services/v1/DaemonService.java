@@ -596,7 +596,7 @@ public interface DaemonService {
       @Query("validate") boolean validate,
       @Body AuthnMethod authnMethod);
 
-  @PUT("/v1/config/deployments/{deploymentName}/security/authn/{methodName}/enabled")
+  @PUT("/v1/config/deployments/{deploymentName}/security/authn/{methodName}/enabled/")
   DaemonTask<Halconfig, Void> setAuthnMethodEnabled(
       @Path("deploymentName") String deploymentName,
       @Path("methodName") String methodName,
