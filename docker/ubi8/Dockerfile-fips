@@ -29,7 +29,7 @@ RUN update-crypto-policies --set FIPS
 COPY halyard-web/build/install/halyard /opt/halyard
 
 ENV KUBECTL_VERSION v1.22.0
-RUN yum -y install git bash
+RUN yum -y install git bash wget
 RUN echo '#!/usr/bin/env bash' > /usr/local/bin/hal && \
   echo '/opt/halyard/bin/hal "$@"' >> /usr/local/bin/hal && \
   chmod +x /usr/local/bin/hal
@@ -37,6 +37,9 @@ RUN echo '#!/usr/bin/env bash' > /usr/local/bin/hal && \
 RUN wget https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
   chmod +x kubectl && \
   mv ./kubectl /usr/local/bin/kubectl
+
+RUN yum -y remove  wget
+RUN yum -y remove clean all && rm -rf /var/cache
   
 RUN adduser spinnaker
 USER spinnaker
