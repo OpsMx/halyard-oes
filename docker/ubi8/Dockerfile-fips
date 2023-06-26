@@ -29,9 +29,12 @@ RUN update-crypto-policies --set FIPS
 COPY halyard-web/build/install/halyard /opt/halyard
 
 ENV KUBECTL_VERSION=v1.22.0
+ENV KUBECTL_RELEASE=1.15.10
 ENV AWS_BINARY_RELEASE_DATE=2020-02-22
+ENV AWS_CLI_VERSION=1.18.18
+RUN yum -y install git bash wget curl python3-pip && \
+pip3 install awscli==${AWS_CLI_VERSION}
 
-RUN yum -y install git bash wget curl
 RUN echo '#!/usr/bin/env bash' > /usr/local/bin/hal && \
   echo '/opt/halyard/bin/hal "$@"' >> /usr/local/bin/hal && \
   chmod +x /usr/local/bin/hal
@@ -46,7 +49,7 @@ RUN curl -f -o  /usr/local/bin/aws-iam-authenticator https://amazon-eks.s3-us-we
 
 RUN yum -y remove  wget curl
 RUN yum -y remove clean all && rm -rf /var/cache
-  
+
 RUN adduser spinnaker
 USER spinnaker
 CMD ["/opt/halyard/bin/halyard"]
