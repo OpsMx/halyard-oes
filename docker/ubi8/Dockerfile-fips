@@ -47,8 +47,7 @@ RUN wget https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VER
 RUN curl -f -o  /usr/local/bin/aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_RELEASE}/${AWS_BINARY_RELEASE_DATE}/bin/linux/amd64/aws-iam-authenticator && \
     chmod +x /usr/local/bin/aws-iam-authenticator
 
-RUN yum -y remove  wget curl
-RUN yum -y remove clean all && rm -rf /var/cache
+
 
 RUN adduser spinnaker
 USER spinnaker
