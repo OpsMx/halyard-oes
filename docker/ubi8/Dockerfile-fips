@@ -29,7 +29,7 @@ RUN update-crypto-policies --set FIPS
 COPY halyard-web/build/install/halyard /opt/halyard
 
 ENV KUBECTL_VERSION v1.22.0
-RUN yum -y install git bash wget
+RUN yum -y install git bash wget curl
 RUN echo '#!/usr/bin/env bash' > /usr/local/bin/hal && \
   echo '/opt/halyard/bin/hal "$@"' >> /usr/local/bin/hal && \
   chmod +x /usr/local/bin/hal
@@ -38,7 +38,11 @@ RUN wget https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VER
   chmod +x kubectl && \
   mv ./kubectl /usr/local/bin/kubectl
 
-RUN yum -y remove  wget
+
+RUN curl -f -o  /usr/local/bin/aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_RELEASE}/${AWS_BINARY_RELEASE_DATE}/bin/linux/amd64/aws-iam-authenticator && \
+    chmod +x /usr/local/bin/aws-iam-authenticator
+
+RUN yum -y remove  wget curl
 RUN yum -y remove clean all && rm -rf /var/cache
   
 RUN adduser spinnaker
