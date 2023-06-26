@@ -245,7 +245,7 @@ public interface DaemonService {
       @Query("validate") boolean validate,
       @Body ArtifactProvider provider);
 
-  @PUT("/v1/config/deployments/{deploymentName}/artifactProviders/{providerName}/enabled/")
+  @PUT("/v1/config/deployments/{deploymentName}/artifactProviders/{providerName}/enabled")
   DaemonTask<Halconfig, Void> setArtifactProviderEnabled(
       @Path("deploymentName") String deploymentName,
       @Path("providerName") String providerName,
