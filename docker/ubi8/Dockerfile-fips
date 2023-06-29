@@ -26,14 +26,26 @@ RUN fips-mode-setup --enable
 # Setting crypto policies to FIPS
 RUN update-crypto-policies --set FIPS
 
+FROM java-builder AS awscli-install
+RUN yum install -y unzip
+RUN curl https://awscli.amazonaws.com/awscli-exe-linux-`uname -m`.zip -o awscliv2.zip
+RUN unzip awscliv2.zip
+RUN ./aws/install
+
+FROM java-builder AS base
+COPY --from=awscli-install /usr/local/aws-cli /usr/local/aws-cli/
+RUN ln -sf /usr/local/aws-cli/v2/current/bin/aws /usr/local/bin/aws && ln -sf /usr/local/aws-cli/v2/current/bin/aws_completer /usr/local/bin/aws_completer
+
+ARG TARGETARCH
+
 COPY halyard-web/build/install/halyard /opt/halyard
 
 ENV KUBECTL_VERSION=v1.22.0
 ENV KUBECTL_RELEASE=1.15.10
 ENV AWS_BINARY_RELEASE_DATE=2020-02-22
 ENV AWS_CLI_VERSION=1.18.18
-RUN yum -y install git bash wget curl python3-pip && \
-pip3 install --upgrade pyyaml==5.4 awscli==${AWS_CLI_VERSION}
+
+RUN yum -y install git bash wget curl
 
 RUN echo '#!/usr/bin/env bash' > /usr/local/bin/hal && \
   echo '/opt/halyard/bin/hal "$@"' >> /usr/local/bin/hal && \
@@ -43,11 +55,8 @@ RUN wget https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VER
   chmod +x kubectl && \
   mv ./kubectl /usr/local/bin/kubectl
 
-
 RUN curl -f -o  /usr/local/bin/aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_RELEASE}/${AWS_BINARY_RELEASE_DATE}/bin/linux/amd64/aws-iam-authenticator && \
     chmod +x /usr/local/bin/aws-iam-authenticator
-
-
 
 RUN adduser spinnaker
 USER spinnaker
