@@ -22,8 +22,6 @@ import org.apache.commons.compress.archivers.ArchiveException
 import org.apache.commons.compress.archivers.ArchiveStreamFactory
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream
 import org.apache.commons.io.IOUtils
-import org.junit.jupiter.api.extension.ExtendWith
-import org.springframework.context.annotation.Import
 import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
 

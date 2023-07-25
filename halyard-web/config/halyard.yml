@@ -35,3 +35,7 @@ backup:
 
 retrofit:
   logLevel: BASIC
+
+logging:
+  level:
+    root: DEBUG
