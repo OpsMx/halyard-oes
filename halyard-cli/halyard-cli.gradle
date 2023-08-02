@@ -20,6 +20,7 @@ dependencies {
   implementation 'org.yaml:snakeyaml:2.0'
   implementation 'com.beust:jcommander:1.81'
   implementation 'org.nibor.autolink:autolink:0.10.0'
+  implementation 'com.google.guava:guava:32.1.1-jre'
 
   implementation project(':halyard-config')
   implementation project(':halyard-core')
