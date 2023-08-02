@@ -26,6 +26,8 @@ dependencies {
     exclude group: 'org.apache.groovy', module: 'groovy'
   }
   implementation 'org.apache.groovy:groovy:4.0.9'
+  implementation 'com.google.guava:guava:32.1.1-jre'
+
   implementation 'org.yaml:snakeyaml:2.0'
   implementation 'com.google.http-client:google-http-client-jackson2:+'
   implementation 'com.google.apis:google-api-services-compute:+' //alpha-rev20200526-1.30.9")
