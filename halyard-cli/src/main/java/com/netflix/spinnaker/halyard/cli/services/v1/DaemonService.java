@@ -179,7 +179,7 @@ public interface DaemonService {
       @Query("validate") boolean validate,
       @Body Features features);
 
-  @PUT("/v1/config/deployments/{deploymentName}/persistentStorage")
+  @PUT("/v1/config/deployments/{deploymentName}/persistentStorage/")
   DaemonTask<Halconfig, Void> setPersistentStorage(
       @Path("deploymentName") String deploymentName,
       @Query("validate") boolean validate,
