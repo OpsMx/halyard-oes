@@ -50,7 +50,9 @@ public class PersistentStorageController {
         .execute(validationSettings);
   }
 
-  @RequestMapping(value = "/", method = RequestMethod.PUT)
+  @RequestMapping(
+      value = {"", "/"},
+      method = RequestMethod.PUT)
   DaemonTask<Halconfig, Void> setPersistentStorage(
       @PathVariable String deploymentName,
       @ModelAttribute ValidationSettings validationSettings,
