@@ -62,6 +62,10 @@ subprojects {
   }
 
   dependencies {
+
+    constraints{
+      api 'org.apache.ivy:ivy:2.5.2'
+    }
     implementation enforcedPlatform("io.spinnaker.kork:kork-bom:$korkVersion"){
       exclude group: 'org.apache.groovy', module: 'groovy'
     }
