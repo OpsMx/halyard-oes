@@ -31,7 +31,7 @@ dependencies {
   implementation "io.spinnaker.kork:kork-config"
   runtimeOnly    "io.spinnaker.kork:kork-actuator"
   implementation "jakarta.validation:jakarta.validation-api:3.0.2"
-  implementation "com.google.guava:guava:32.1.1-jre"
+  implementation "com.google.guava:guava"
 
   implementation project(':halyard-backup')
   // halyard-cli is required as a dependency even though it is not used directly by halyard-web
