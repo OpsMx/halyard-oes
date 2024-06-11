@@ -4,7 +4,7 @@ on:
   workflow_call:
   push:
     branches:
-    - OES-1.30.x-master-adhoc
+    - OES-1.33.x
  
 env:
   GRADLE_OPTS: -Dorg.gradle.daemon=false -Xmx6g -Xms6g
@@ -29,10 +29,10 @@ jobs:
         id: build_variables
         run: |
           echo ::set-output name=REPO::ubi8-halyard-cve
-          #echo ::set-output name=VERSION::"1.55.1$(date --utc +'%Y%m%d%H%M')"
-          #echo ::set-output name=VERSION::"1.55.1$(date --utc +'%Y%m%d')"
-          #echo ::set-output name=VERSION::"1.55.1$(date --utc +'%-m%d')"
-          echo ::set-output name=VERSION::"1.55.1"
+          #echo ::set-output name=VERSION::"1.65$(date --utc +'%Y%m%d%H%M')"
+          #echo ::set-output name=VERSION::"1.65$(date --utc +'%Y%m%d')"
+          #echo ::set-output name=VERSION::"1.65$(date --utc +'%-m%d')"
+          echo ::set-output name=VERSION::"1.65"
           echo "::set-output name=GITHASH::$(git rev-parse --short HEAD)"
           echo "::set-output name=BUILDDATE::$(date -u +"%Y%m%d%H%M")"
       - name: Login to Quay
