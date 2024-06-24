@@ -19,6 +19,7 @@ package com.netflix.spinnaker.halyard.config.config.v1;
 import com.jakewharton.retrofit.Ok3Client;
 import com.netflix.spinnaker.config.OkHttp3ClientConfiguration;
 import com.netflix.spinnaker.config.OkHttpClientComponents;
+import com.netflix.spinnaker.config.RetrofitConfiguration;
 import com.netflix.spinnaker.config.okhttp3.OkHttpClientProvider;
 import com.netflix.spinnaker.kork.api.exceptions.ExceptionMessage;
 import com.netflix.spinnaker.kork.web.exceptions.ExceptionMessageDecorator;
@@ -35,7 +36,11 @@ import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 
 @Configuration
-@Import({OkHttp3ClientConfiguration.class, OkHttpClientComponents.class})
+@Import({
+  OkHttp3ClientConfiguration.class,
+  OkHttpClientComponents.class,
+  RetrofitConfiguration.class
+})
 class RetrofitConfig {
   @Autowired OkHttp3ClientConfiguration okHttpClientConfig;
 
