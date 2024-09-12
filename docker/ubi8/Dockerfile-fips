@@ -65,6 +65,6 @@ RUN rm -f openshift-client-linux.tar.gz
 RUN mv oc /usr/local/bin/
 
 
-RUN adduser spinnaker root
+RUN adduser  root
 USER root 
 CMD ["/opt/halyard/bin/halyard"]
