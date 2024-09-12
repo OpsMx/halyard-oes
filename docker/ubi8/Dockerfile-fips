@@ -45,7 +45,7 @@ ENV KUBECTL_RELEASE=1.15.10
 ENV AWS_BINARY_RELEASE_DATE=2020-02-22
 
 RUN yum -y install git bash wget curl
-RUN yum -y remove tar vim vi
+#RUN yum -y remove tar vim vi
 RUN echo '#!/usr/bin/env bash' > /usr/local/bin/hal && \
   echo '/opt/halyard/bin/hal "$@"' >> /usr/local/bin/hal && \
   chmod +x /usr/local/bin/hal
