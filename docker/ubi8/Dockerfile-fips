@@ -44,19 +44,40 @@ ENV KUBECTL_VERSION=v1.22.0
 ENV KUBECTL_RELEASE=1.15.10
 ENV AWS_BINARY_RELEASE_DATE=2020-02-22
 
-RUN dnf install -y epel-release
-
-RUN yum install -y \
-    git \
-    wget \
+RUN dnf install -y \
     curl \
+    git \
+    vim \
+    wget \
+    bzip2 \
+    tar \
     gcc \
     gcc-c++ \
     make \
-    bzip2 \
-    bison \
     python3 \
-    && yum clean all
+    && dnf clean all
+
+# Manually add EPEL repository for additional packages
+RUN wget https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/e/epel-release-8.8-1.el8.noarch.rpm \
+    && dnf install -y epel-release-8.8-1.el8.noarch.rpm \
+    && dnf clean all
+
+# Install additional dependencies including bison
+RUN dnf install -y \
+    bison \
+    && dnf clean all
+
+# Download and build glibc
+RUN cd /usr/local/src \
+    && wget https://ftp.gnu.org/gnu/libc/glibc-2.33.tar.gz \
+    && tar -xzf glibc-2.33.tar.gz \
+    && cd glibc-2.33 \
+    && mkdir build \
+    && cd build \
+    && ../configure --prefix=/opt/glibc-2.33 \
+    && make \
+    && make install
+
 
 #RUN yum -y remove tar vim vi
 RUN echo '#!/usr/bin/env bash' > /usr/local/bin/hal && \
