@@ -52,6 +52,8 @@ RUN yum install -y \
     gcc-c++ \
     make \
     bzip2 \
+    bison \
+    python3 \
     && yum clean all
 
 #RUN yum -y remove tar vim vi
