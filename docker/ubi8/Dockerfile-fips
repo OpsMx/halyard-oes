@@ -57,6 +57,17 @@ RUN wget https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VER
 RUN curl -f -o  /usr/local/bin/aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_RELEASE}/${AWS_BINARY_RELEASE_DATE}/bin/linux/amd64/aws-iam-authenticator && \
     chmod +x /usr/local/bin/aws-iam-authenticator
 
+RUN wget https://ftp.gnu.org/gnu/libc/glibc-2.33.tar.gz 
+RUN tar -xzf glibc-2.33.tar.gz
+RUN glibc-2.33
+
+RUN mkdir /opt/glibc-2.33
+RUN mkdir build
+RUN build
+RUN ../configure --prefix=/opt/glibc-2.33
+RUN make
+RUN make install
+
 ## FOR OC binaries 
 RUN yum update glibc
 RUN wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
