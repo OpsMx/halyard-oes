@@ -57,7 +57,7 @@ RUN dnf install -y \
     python3 \
     && dnf clean all
 
-RUN curl -O https://rpmfind.net/linux/centos/8/updates/x86_64/Packages/bison-3.0.4-7.el8.x86_64.rpm \
+RUN curl -O https://rpmfind.net/linux/centos/8/updates/x86_64/Packages/bison-3.0.4-7.el8.x86_64.rpm 
 RUN pwd
 RUN  ls
 RUN  rpm -i  bison-3.0.4-7.el8.x86_64.rpm 
