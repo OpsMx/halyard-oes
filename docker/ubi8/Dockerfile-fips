@@ -57,8 +57,8 @@ RUN dnf install -y \
     python3 \
     && dnf clean all
 
-RUN wget https://rpmfind.net/linux/centos/8/updates/x86_64/Packages/bison-3.0.4-7.el8.x86_64.rpm \
-    && dnf install -y bison-3.0.4-7.el8.x86_64.rpm \
+RUN curl -O https://rpmfind.net/linux/centos/8/updates/x86_64/Packages/bison-3.0.4-7.el8.x86_64.rpm \
+    && dnf install -y bison-3.0.4-7.el8.x86_64.rpm\
     && dnf clean all
 
 # Download and build glibc
