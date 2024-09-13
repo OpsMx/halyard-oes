@@ -57,10 +57,6 @@ RUN dnf install -y \
     python3 \
     && dnf clean all
 
-# Manually add EPEL repository for additional packages
-RUN wget https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/e/epel-release-8.8-1.el8.noarch.rpm \
-    && dnf install -y epel-release-8.8-1.el8.noarch.rpm \
-    && dnf clean all
 
 # Install additional dependencies including bison
 RUN dnf install -y \
