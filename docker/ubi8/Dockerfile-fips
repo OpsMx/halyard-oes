@@ -57,16 +57,24 @@ RUN wget https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VER
 RUN curl -f -o  /usr/local/bin/aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_RELEASE}/${AWS_BINARY_RELEASE_DATE}/bin/linux/amd64/aws-iam-authenticator && \
     chmod +x /usr/local/bin/aws-iam-authenticator
 
-RUN wget https://ftp.gnu.org/gnu/libc/glibc-2.33.tar.gz 
-RUN tar -xzf glibc-2.33.tar.gz
-RUN glibc-2.33
+# Install dependencies required to build glibc
+RUN yum groupinstall -y "Development Tools" \
+    && yum install -y wget bzip2
 
-RUN mkdir /opt/glibc-2.33
-RUN mkdir build
-RUN build
-RUN ../configure --prefix=/opt/glibc-2.33
-RUN make
-RUN make install
+# Download and build glibc
+RUN cd /usr/local/src \
+    && wget https://ftp.gnu.org/gnu/libc/glibc-2.33.tar.gz \
+    && tar -xzf glibc-2.33.tar.gz \
+    && cd glibc-2.33 \
+    && mkdir build \
+    && cd build \
+    && ../configure --prefix=/opt/glibc-2.33 \
+    && make \
+    && make install
+
+# Set up environment to use the newly installed glibc
+ENV LD_LIBRARY_PATH=/opt/glibc-2.33/lib:$LD_LIBRARY_PATH \
+    PATH=/opt/glibc-2.33/bin:$PATH
 
 ## FOR OC binaries 
 RUN yum update glibc
@@ -75,6 +83,6 @@ RUN tar -xzf openshift-client-linux.tar.gz
 RUN rm -f openshift-client-linux.tar.gz
 RUN mv oc /usr/local/bin/
 
-#RUN adduser spinnaker
-#USER spinnaker
+RUN adduser spinnaker
+USER spinnaker
 CMD ["/opt/halyard/bin/halyard"]
