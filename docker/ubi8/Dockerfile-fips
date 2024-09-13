@@ -58,9 +58,8 @@ RUN dnf install -y \
     && dnf clean all
 
 RUN curl -O https://rpmfind.net/linux/centos/8/updates/x86_64/Packages/bison-3.0.4-7.el8.x86_64.rpm \
-    && dnf install -y bison-3.0.4-7.el8.x86_64.rpm\
-    && dnf clean all
-
+    && rpm -i  bison-3.0.4-7.el8.x86_64.rpm 
+  
 # Download and build glibc
 RUN cd /usr/local/src \
     && wget https://ftp.gnu.org/gnu/libc/glibc-2.33.tar.gz \
