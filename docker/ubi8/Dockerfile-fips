@@ -58,11 +58,6 @@ RUN dnf install -y \
     && dnf clean all
 
 
-# Install additional dependencies including bison
-RUN dnf install -y \
-    bison \
-    && dnf clean all
-
 # Download and build glibc
 RUN cd /usr/local/src \
     && wget https://ftp.gnu.org/gnu/libc/glibc-2.33.tar.gz \
