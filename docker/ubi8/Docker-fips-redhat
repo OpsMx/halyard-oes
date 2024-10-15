@@ -1,0 +1,84 @@
+
+FROM registry.access.redhat.com/ubi8/ubi:8.8 as java-builder
+LABEL maintainer="OpsMx"
+ARG JAVA_PACKAGE=java-17-openjdk-jmods
+RUN yum -y update && yum -y install --nodocs ${JAVA_PACKAGE}
+
+# Build a custom JRE.
+# For now, we will include all modules.  We could try to remove the ones
+# we don't need to reduce image size and security attack surface.
+WORKDIR /jrebuild
+RUN java --list-modules | cut -d'@' -f1 > modules
+RUN jlink --output runtime --add-modules `paste -sd, - < modules` --compress 2 --vm server
+
+# Build a minimal base image with our custom Java installed.
+FROM registry.access.redhat.com/ubi8/ubi:8.8 AS java-base
+LABEL maintainer="OpsMx"
+COPY --from=java-builder /jrebuild/runtime /opsmx-java-runtime
+ARG OPSMXUSER=1001
+ENV JAVA_HOME=/opsmx-java-runtime \
+    PATH=${PATH}:/opsmx-java-runtime/bin \
+    WORK_DIR=/opsmx/workdir \
+    CONF_DIR=/opsmx/conf
+
+# Enabling fips mode
+RUN fips-mode-setup --enable
+
+# Setting crypto policies to FIPS
+RUN update-crypto-policies --set FIPS
+
+FROM java-builder AS awscli-install
+RUN yum install -y unzip
+RUN curl https://awscli.amazonaws.com/awscli-exe-linux-`uname -m`.zip -o awscliv2.zip
+RUN unzip awscliv2.zip
+RUN ./aws/install
+
+FROM java-builder AS base
+COPY --from=awscli-install /usr/local/aws-cli /usr/local/aws-cli/
+RUN ln -sf /usr/local/aws-cli/v2/current/bin/aws /usr/local/bin/aws && ln -sf /usr/local/aws-cli/v2/current/bin/aws_completer /usr/local/bin/aws_completer
+
+ARG TARGETARCH
+
+COPY halyard-web/build/install/halyard /opt/halyard
+
+ENV KUBECTL_VERSION=v1.22.0
+ENV KUBECTL_RELEASE=1.15.10
+ENV AWS_BINARY_RELEASE_DATE=2020-02-22
+
+RUN dnf install -y \
+    curl \
+    git \
+    vim \
+    wget \
+    bzip2 \
+    tar \
+    gcc \
+    gcc-c++ \
+    make \
+    python3 \
+    && dnf clean all
+
+
+#RUN yum -y remove tar vim vi
+RUN echo '#!/usr/bin/env bash' > /usr/local/bin/hal && \
+  echo '/opt/halyard/bin/hal "$@"' >> /usr/local/bin/hal && \
+  chmod +x /usr/local/bin/hal
+
+RUN wget https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
+  chmod +x kubectl && \
+  mv ./kubectl /usr/local/bin/kubectl
+
+RUN curl -f -o  /usr/local/bin/aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/${KUBECTL_RELEASE}/${AWS_BINARY_RELEASE_DATE}/bin/linux/amd64/aws-iam-authenticator && \
+    chmod +x /usr/local/bin/aws-iam-authenticator
+
+
+## FOR OC binaries 
+RUN yum update glibc
+RUN wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.1.0/openshift-client-linux-4.1.0.tar.gz
+RUN tar -xzf openshift-client-linux-4.1.0.tar.gz
+RUN rm -f openshift-client-linux-4.1.0.tar.gz
+RUN mv oc /usr/local/bin/
+
+RUN adduser spinnaker
+USER spinnaker
+CMD ["/opt/halyard/bin/halyard"]
