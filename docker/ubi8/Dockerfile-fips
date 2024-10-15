@@ -71,13 +71,6 @@ RUN curl -f -o  /usr/local/bin/aws-iam-authenticator https://amazon-eks.s3-us-we
     chmod +x /usr/local/bin/aws-iam-authenticator
 
 
-## FOR OC binaries 
-RUN yum update glibc
-RUN wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.1.0/openshift-client-linux-4.1.0.tar.gz
-RUN tar -xzf openshift-client-linux-4.1.0.tar.gz
-RUN rm -f openshift-client-linux-4.1.0.tar.gz
-RUN mv oc /usr/local/bin/
-
 RUN adduser spinnaker
 USER spinnaker
 CMD ["/opt/halyard/bin/halyard"]
