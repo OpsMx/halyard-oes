@@ -9,7 +9,7 @@ LABEL description='Certified Open Enterprise Spinnaker is an Enterprise grade, R
 LABEL vendor='OpsMx'
 COPY halyard-web/build/install/halyard /opt/halyard
 
-ENV KUBECTL_VERSION v1.22.0
+ENV KUBECTL_VERSION v1.31.0
 
 
 #ENV KUBECTL_RELEASE=1.15.10
