@@ -36,11 +36,16 @@ FROM java-builder AS base
 COPY --from=awscli-install /usr/local/aws-cli /usr/local/aws-cli/
 RUN ln -sf /usr/local/aws-cli/v2/current/bin/aws /usr/local/bin/aws && ln -sf /usr/local/aws-cli/v2/current/bin/aws_completer /usr/local/bin/aws_completer
 
-#cvefix
-RUN yum -y install wget ca-certificates-2024.2.69_v8.0.303-80.0.el8_10 expat-2.2.5-15.el8_10
+#cve fix 
+RUN yum -y install wget  binutils bzip2-libs 
+
+RUN yum install ca-certificates-2024.2.69_v8.0.303-80.0.el8_10  -y
+
+RUN wget https://tsn.miraclelinux.com/system/files/AXS8/x86_64/UPDATE/RPMS/expat-2.2.5-15.el8_10.x86_64.rpm
+RUN rpm -Uvh --force expat-2.2.5-15.el8_10.x86_64.rpm
+
 RUN wget https://fr2.rpmfind.net/linux/almalinux/8.10/BaseOS/x86_64/os/Packages/krb5-libs-1.18.2-29.el8_10.x86_64.rpm
 RUN rpm -Uvh --force  krb5-libs-1.18.2-29.el8_10.x86_64.rpm
-
 ARG TARGETARCH
 
 COPY halyard-web/build/install/halyard /opt/halyard
