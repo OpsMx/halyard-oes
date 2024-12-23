@@ -29,6 +29,7 @@ jobs:
         id: build_variables
         run: |
           echo ::set-output name=REPO::ubi8-halyard-cve
+          echo ::set-output name=OCREPO::ubi8-halyard-cve-oc
           #echo ::set-output name=VERSION::"1.65.0$(date --utc +'%Y%m%d%H%M')"
           #echo ::set-output name=VERSION::"1.65.0$(date --utc +'%Y%m%d')"
           #echo ::set-output name=VERSION::"1.65.0$(date --utc +'%-m%d')"
@@ -64,7 +65,7 @@ jobs:
           tags: |
             "${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}"
     
-      - id: get-build-oc-image
+      - id: get-build-image
         run: |
             imageName="${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}"
             echo "Halyard=$imageName" >> $GITHUB_OUTPUT
@@ -75,9 +76,9 @@ jobs:
           file: docker/ubi8/Docker-fips-redhat
           push: true
           tags: |
-            "${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}"
-      - id: get-build-IMAGE-NAME
+            "${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.OCREPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}"
+      - id: get-build-OC-IMAGE-NAME
         run: |
-            imageNameoc="${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}-oc"
-            echo "Halyard-OC=$imageNameoc" >> $GITHUB_OUTPUT
+            imageName="${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}"
+            echo "Halyard-OC=$imageName" >> $GITHUB_OUTPUT
  
