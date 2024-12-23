@@ -63,19 +63,21 @@ jobs:
           push: true
           tags: |
             "${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}"
-
-      - name: dockerBuildpushDev
+    
+      - id: get-build-oc-image
+        run: |
+            imageName="${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}"
+            echo "Halyard=$imageName" >> $IMAGENAME_OUTPUT
+      - name: dockerBuildpushOC
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: docker/ubi8/Dockerfile-dev
+          file: docker/ubi8/Docker-fips-redhat
           push: true
           tags: |
-            "${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}-dev"
-      - id: get-build-name
+            "${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}"
+      - id: get-build-IMAGE-NAME
         run: |
-            imageName="${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}"
-    
-            echo "clouddriver=$imageName" >> $GITHUB_OUTPUT
-            echo "clouddriverDev=$imageName"-dev >> $GITHUB_OUTPUT
+            imageNameoc="${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}-oc"
+            echo "Halyard-OC=$imageNameoc" >> $IMAGENAME_OUTPUT
  
