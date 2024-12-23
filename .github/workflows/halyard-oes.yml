@@ -68,7 +68,7 @@ jobs:
       - id: get-build-image
         run: |
             imageName="${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}"
-            echo "Halyard=$imageName" >> $GITHUB_OUTPUT
+            echo "Halyard=$imageName" > $GITHUB_OUTPUT
       - name: dockerBuildpushOC
         uses: docker/build-push-action@v2
         with:
@@ -79,6 +79,6 @@ jobs:
             "${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.OCREPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}"
       - id: get-build-OC-IMAGE-NAME
         run: |
-            imageName="${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.REPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}"
+            imageName="${{ env.CONTAINER_REGISTRY }}/${{ steps.build_variables.outputs.OCREPO }}:${{ steps.build_variables.outputs.VERSION }}-${{ steps.build_variables.outputs.GITHASH }}-${{ steps.build_variables.outputs.BUILDDATE }}"
             echo "Halyard-OC=$imageName" >> $GITHUB_OUTPUT
  
